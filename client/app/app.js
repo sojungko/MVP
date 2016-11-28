@@ -1,5 +1,5 @@
-angular.module('image-uploader', []);
-.config(function($routeProvider, $httpProvider) {
+angular.module('image-uploader', ['image-viewall'])
+.config(function($routeProvider) {
   $routeProvider
   .when('/viewall', {
     templateUrl: './viewall.html',
@@ -15,7 +15,7 @@ module.exports = function(app) {
   app.use(require('body-parser').urlencoded({extended: true}));
 
 
-  app.post('/', upload.single(''))
+  app.post('/', upload.single(''));
 
   function uploadImage(req, res) {
     var myFile = req.file;

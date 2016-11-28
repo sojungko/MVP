@@ -1,5 +1,7 @@
-var imageController = require('')
+var imageController = require('../client/app/viewall/viewall.js');
 
 module.exports = function(app, express) {
-  app.post('/', )
+  app.post('/', function(req, res) {
+  });
+
 }

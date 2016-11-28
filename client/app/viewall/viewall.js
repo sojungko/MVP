@@ -1,5 +1,5 @@
-angular.module('image-viewall', []);
+angular.module('image-viewall', [])
 
 .controller('imageController', function($scope) {
-  
+
 })

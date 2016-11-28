@@ -10,6 +10,8 @@
   "author": "Sojung Park",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.5.9",
+    "angular-route": "^1.5.9",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "multer": "^1.2.0"
