@@ -1,3 +1,16 @@
-<div class='page-header'>
-  <h3>View All Images</h3>
+<div class="container" ng-controller='viewController'>
+  <div class='page-header'>
+    <h3>View All Images</h3>
+
+    <div class="images">
+      <div class="image"
+          ng-repeat="image in images | filter:search | orderBy:'created_at'">
+        <div class="info">
+          <div class="title">{{ image.title }}</div>
+          <div class="picture">{{ image.image }}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

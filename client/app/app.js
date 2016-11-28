@@ -1,31 +1,13 @@
-angular.module('image-uploader', ['image-viewall'])
-.config(function($routeProvider) {
-  $routeProvider
-  .when('/viewall', {
-    templateUrl: './viewall.html',
-    controller: 'imageController'
-  });
-})
+angular.module('image-uploader', ['image-viewall', 'image-upload', 'ngRoute'])
 
-
-module.exports = function(app) {
-  var multer = require('multer');
-  var upload = multer({ dest: __dirname+'./public/uploads' }, uploadImage)
-
-  app.use(require('body-parser').urlencoded({extended: true}));
-
-
-  app.post('/', upload.single(''));
-
-  function uploadImage(req, res) {
-    var myFile = req.file;
-
-    var originalname = myFile.originalname;
-    var filename = myFile.filename;
-    var path = myFile.path;
-    var destination = myFile.destination;
-    var size = myFile.size;
-    var mimetype = myFile.mimetype;
-  }
-
-}
+  .config(function($routeProvider) {
+    $routeProvider
+    .when('/upload', {
+      templateUrl: 'app/upload/upload.html',
+      controller: 'uploadController'
+    })
+    .when('/viewall', {
+      templateUrl: 'app/viewall/viewall.html',
+      controller: 'viewController'
+    })
+  })
