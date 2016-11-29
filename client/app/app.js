@@ -10,4 +10,8 @@ angular.module('image-uploader', ['image-viewall', 'image-upload', 'image-servic
       templateUrl: 'app/viewall/viewall.html',
       controller: 'viewController'
     })
+    .when('/uploaded', {
+      templateUrl: 'app/viewall/viewall.html',
+      controller: 'viewController'
+    })
   })

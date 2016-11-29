@@ -6,7 +6,7 @@
       <div class="image" ng-repeat="image in data.images">
         <div class="info">
           <div class="picture">
-            <img ng-src="uploads/{{ image }}"/>
+            <img ng-src="{{ image.url }}"/>
           </div>
         </div>
       </div>

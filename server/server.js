@@ -4,6 +4,7 @@ var multer = require('multer');
 var fs = require('fs');
 var request = require('request');
 var mongoose = require('mongoose');
+var cloudinary = require('cloudinary');
 
 var upload = multer({ dest: __dirname+ '../public/uploads' });
 
@@ -14,12 +15,20 @@ var bodyparser = require('body-parser');
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true}));
 
-mongoose.connect('mongodb://nameless-coast-29330.herokuapp.com/image-uploader');
+cloudinary.config({
+  cloud_name: 'hcjnmilpd',
+  api_key: '138323914321937',
+  api_secret: 'cxqF1L8C-l-Tw1v6ZUrTWNWINuw'
+});
+
+var mongo = process.env.MONGODB_URI || 'mongodb://localhost:27017/image-uploader'
+mongoose.connect(mongo);
 
 var Schema = mongoose.Schema;
 var Image = mongoose.model('Image', new Schema({ image: String }));
 
 app.set('port', process.env.PORT || 3000);
+
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../client')));
 app.use(multer({ dest: __dirname+ '../public/uploads' }).single('image'));
@@ -33,7 +42,8 @@ app.get('/viewall', function(req, res) {
     if(err) {
       console.log('Error saving to database : ', err);
     } else {
-      res.end(docs);
+      console.log('DOCS : ', docs);
+      res.send(docs);
     }
   })
 
@@ -44,31 +54,47 @@ app.get('/viewall', function(req, res) {
   //     console.log('Read files : ', files);
   //     res.json(files);
   //   }
-  // })
-});
+  // });
+})
 
-app.post('/upload', upload.single('image'), function(req, res, next) {
-  if(req.file) {
-    var file = req.file;
-    var filename = (new Date).valueOf() + '-' + file.originalname;
-    file.save(function(err, image) {
+// app.post('/upload', upload.single('image'), function(req, res, next) {
+//   if(req.file) {
+//     var file = req.file;
+//     var filename = (new Date).valueOf() + '-' + file.originalname;
+//     file.save(function(err, image) {
+//       if(err) {
+//         console.log('Error posting image : ', err)
+//       } else {
+//         res.end(image);
+//       }
+//     })
+//
+//     fs.writeFile(path.join(__dirname, '/uploads/',filename), filename, function(err, results) {
+//       if(err) {
+//         console.log('Error uploading image : ', err)
+//       } else {
+//         res.end();
+//         console.log('Image uploaded!')
+//       }
+//     });
+//   }
+// });
+
+app.post('/upload', upload.single('image'), function(req, res){
+  cloudinary.uploader.upload(req.file.path, function(result) {
+    console.log('IMAGE URL : ', result.url);
+    var image = new Image({ image: result.url });
+    image.save(function(err, results) {
       if(err) {
-        console.log('Error posting image : ', err)
+        console.log('ERROR SAVING IMAGE TO DATABASE :', err)
       } else {
-        res.end(image);
+        console.log(results);
       }
     })
+    res.status(200).redirect('/')
+  });
 
-    // fs.writeFile(path.join(__dirname, '/uploads/',filename), filename, function(err, results) {
-    //   if(err) {
-    //     console.log('Error uploading image : ', err)
-    //   } else {
-    //     res.end();
-    //     console.log('Image uploaded!')
-    //   }
-    // });
 
-  }
 });
 
 

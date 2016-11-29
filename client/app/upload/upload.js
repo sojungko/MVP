@@ -2,7 +2,6 @@ angular.module('image-upload', [])
   .controller('uploadController', function($scope, Uploads) {
     $scope.image = {};
     $scope.submit = function() {
-      console.log("HIT SUBMIT")
       Uploads.addOne($scope.image)
         .then(function(res) {
           $scope.image = res.data;
