@@ -14,9 +14,9 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true}));
 
 app.set('port', process.env.PORT || 3000);
-app.use(express.static(path.join(__dirname, '../public')));
-app.use(express.static(path.join(__dirname, '../client')));
-app.use(multer({ dest: __dirname+ '../public/uploads' }).single('image'));
+app.use(multer({ dest: __dirname+ '/public/uploads' }).single('image'));
+app.use(express.static(path.join(__dirname, '/server/public')));
+app.use(express.static(path.join(__dirname, '/client')));
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
@@ -42,7 +42,7 @@ app.post('/upload', upload.single('image'), function(req, res, next) {
     var file = req.file;
     var filename = (new Date).valueOf() + '-' + file.originalname;
     console.log(__dirname);
-    fs.writeFile(path.join(__dirname, 'public/uploads/',filename), filename, function(err, results) {
+    fs.writeFile(path.join(__dirname, '/uploads/',filename), filename, function(err, results) {
       if(err) {
         console.log('Error uploading image : ', err)
       } else {
