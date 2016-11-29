@@ -16,6 +16,7 @@ app.use(bodyparser.urlencoded({ extended: true}));
 
 mongoose.connect('mongodb://nameless-coast-29330.herokuapp.com/image-uploader');
 
+var Schema = mongoose.Schema;
 var Image = mongoose.model('Image', new Schema({ image: String }));
 
 app.set('port', process.env.PORT || 3000);
