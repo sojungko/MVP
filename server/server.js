@@ -3,7 +3,7 @@ var path = require('path');
 var multer = require('multer');
 var fs = require('fs');
 var request = require('request');
-// var upload = multer({ dest: __dirname+ '../public/uploads' });
+var upload = multer({ dest: __dirname+ '../public/uploads' });
 
 
 var app = express();
