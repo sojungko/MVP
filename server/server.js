@@ -28,23 +28,25 @@ app.get('/viewall', function(req, res) {
     if(err) {
       console.log('Error reading image names : ', err);
     } else {
-      console.log('Read files ~~~: ', files);
+      console.log('Read files : ', files);
       res.json(files);
     }
   })
 });
 
+
 app.post('/upload', upload.any(), function(req, res, next) {
-  console.log(req.body)
+  console.log('REQUEST.FILES : ', req.files);
   if(req.files) {
     req.files.forEach(function(file) {
       var filename = (new Date).valueOf() + '-' + file.originalname;
-      fs.rename(file.path, '../public/uploads/'+filename, function(err) {
+      console.log(filename);
+      fs.rename(file.path, '../public/uploads/'+filename, function(err, results) {
         if(err) {
           console.log('Error uploading image : ', err)
         } else {
-          console.log('Image uploaded! : ', file);
-          res.send('hello world');
+          res.json(results);
+          console.log('Image uploaded!')
         }
       });
     })

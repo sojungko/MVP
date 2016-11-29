@@ -1,5 +1,5 @@
 angular.module('image-viewall', [])
-  .controller('viewController', function($scope, $http, Uploads) {
+  .controller('viewController', function($scope, Uploads) {
     $scope.data = {};
     var viewAll = function() {
       Uploads.getAll()
