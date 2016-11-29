@@ -38,19 +38,19 @@ app.get('/viewall', function(req, res) {
 
 
 app.post('/upload', upload.single('image'), function(req, res, next) {
-  if(req.files) {
-    req.files.forEach(function(file) {
-      var filename = (new Date).valueOf() + '-' + file.originalname;
-      console.log(filename);
-      fs.rename(file.path, '../public/uploads/'+filename, function(err, results) {
-        if(err) {
-          console.log('Error uploading image : ', err)
-        } else {
-          res.end();
-          console.log('Image uploaded!')
-        }
-      });
-    })
+  if(req.file) {
+    var file = req.file;
+    var filename = (new Date).valueOf() + '-' + file.originalname;
+    console.log(filename);
+    fs.rename(file.path, '../public/uploads/'+filename, function(err, results) {
+      if(err) {
+        console.log('Error uploading image : ', err)
+      } else {
+        res.end();
+        console.log('Image uploaded!')
+      }
+    });
+
   }
 });
 
