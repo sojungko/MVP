@@ -5,7 +5,9 @@
   "description": "Uploads images and pools them in a page",
   "main": "app.js",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node server/server.js",
+    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "heroku-postbuild": "echo This runs afterwards."
   },
   "author": "Sojung Park",
   "license": "ISC",
