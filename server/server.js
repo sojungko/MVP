@@ -3,7 +3,7 @@ var path = require('path');
 var multer = require('multer');
 var fs = require('fs');
 var request = require('request');
-var upload = multer({ dest: __dirname+ '../public/uploads' });
+// var upload = multer({ dest: __dirname+ '../public/uploads' });
 
 
 var app = express();
@@ -16,7 +16,7 @@ app.use(bodyparser.urlencoded({ extended: true}));
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../client')));
-app.use(upload);
+app.use(multer({ dest: __dirname+ '../public/uploads' }));
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
