@@ -15,8 +15,8 @@ app.use(bodyparser.urlencoded({ extended: true}));
 
 app.set('port', process.env.PORT || 3000);
 app.use(multer({ dest: __dirname+ '/public/uploads' }).single('image'));
-app.use(express.static(path.join(__dirname, '/server/public')));
 app.use(express.static(path.join(__dirname, '/client')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
