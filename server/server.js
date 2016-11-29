@@ -28,7 +28,7 @@ app.get('/viewall', function(req, res) {
     if(err) {
       console.log('Error reading image names : ', err);
     } else {
-      console.log('Read files : ', files);
+      console.log('Read files ~~~: ', files);
       res.json(files);
     }
   })
