@@ -36,7 +36,6 @@ app.get('/viewall', function(req, res) {
 
 
 app.post('/upload', upload.any(), function(req, res, next) {
-  console.log('REQUEST.FILES : ', req.files);
   if(req.files) {
     req.files.forEach(function(file) {
       var filename = (new Date).valueOf() + '-' + file.originalname;
