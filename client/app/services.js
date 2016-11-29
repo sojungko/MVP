@@ -9,10 +9,19 @@ angular.module('image-services', [])
     };
 
     var addOne = function (image) {
-      return $http({
-        method: 'POST',
-        url: '/upload',
-        data: image
+      var fd = new FormData();
+      fd.append('file', image);
+      $http.post('/upload', fd, {
+        transformRequest: angular.identity,
+        headers: {
+          'Content-Type': undefined},
+        enctype: 'multipart/form-data'
+      })
+      .success(function() {
+        console.log('Success!!!!');
+      })
+      .error(function() {
+
       });
     };
 

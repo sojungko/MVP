@@ -1,13 +1,12 @@
-<div class="container" ng-controller='viewController'>
+<div class="container">
   <div class='page-header'>
     <h3>View All Images</h3>
 
     <div class="images">
-      <div class="image"
-          ng-repeat="image in data.images">
+      <div class="image" ng-repeat="image in data.images">
         <div class="info">
           <div class="picture">
-            <img ng-src='{{ image }}' alt=''/>
+            <img ng-src="uploads/{{ image }}"/>
           </div>
         </div>
       </div>

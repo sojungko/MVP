@@ -13,7 +13,9 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true}));
 
 app.set('port', process.env.PORT || 3000);
+app.use(express.static(path.join(__dirname, '../public')));
 app.use(express.static(path.join(__dirname, '../client')));
+
 
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
@@ -27,34 +29,24 @@ app.get('/viewall', function(req, res) {
       console.log('Error reading image names : ', err);
     } else {
       console.log('Read files : ', files);
-      res.send(files);
+      res.json(files);
     }
   })
 });
 
 
-app.post('/', upload.any(), function(req, res, next) {
+app.post('/upload', upload.any(), function(req, res, next) {
+  console.log(req.body)
   if(req.files) {
     req.files.forEach(function(file) {
-      var filename = (new Date).valueOf() + '-' + file.originalname
+      var filename = (new Date).valueOf() + '-' + file.originalname;
       fs.rename(file.path, '../public/uploads/'+filename, function(err) {
         if(err) {
           console.log('Error uploading image : ', err)
         } else {
-          console.log('Image uploaded!')
-          var image = new Image({
-            title: req.body.title,
-            image: filename
-          });
-
-          image.save(function(err, results) {
-            if(err) {
-              console.log('Error saving to database : ', err);
-            } else {
-              console.log('Saved to database : ', results);
-              res.redirect('/upload');
-            }
-          })
+          console.log('Image uploaded! : ', file);
+          res.send('hey');
+          next()
         }
       });
     })
