@@ -4,7 +4,7 @@ angular.module('image-viewall', [])
     var viewAll = function() {
       Uploads.getAll()
         .then(function(imageArr) {
-          console.log('Image arr : ', imageArr);
+          console.log('Image : ', imageArr[0].image);
           $scope.data.images = imageArr;
         })
         .catch(function(err) {
