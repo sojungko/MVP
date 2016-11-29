@@ -42,7 +42,7 @@ app.post('/upload', upload.single('image'), function(req, res, next) {
     var file = req.file;
     var filename = (new Date).valueOf() + '-' + file.originalname;
     console.log(filename);
-    fs.rename(file.path, '../public/uploads/'+filename, function(err, results) {
+    fs.rename(file.path, 'uploads/'+filename, function(err, results) {
       if(err) {
         console.log('Error uploading image : ', err)
       } else {
