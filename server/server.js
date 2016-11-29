@@ -2,7 +2,8 @@ var express = require('express');
 var path = require('path');
 var multer = require('multer');
 var fs = require('fs');
-var upload = multer({ dest: __dirname+ '../public/uploads' }, uploadImage);
+var request = require('request');
+var upload = multer({ dest: __dirname+ '../public/uploads' });
 
 var app = express();
 app.disable('x-powered-by');
@@ -18,19 +19,18 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/image-uploader');
-
-var Image = mongoose.model('Image', {
-  title: {
-    type: String
-  },
-  image: String
-});
 
 app.get('/viewall', function(req, res) {
-  res.send();
-})
+  console.log(req.body)
+  fs.readdir(path.join(__dirname, '../../../public/uploads'), function(err, files) {
+    if(err) {
+      console.log('Error reading image names : ', err);
+    } else {
+      console.log('Read files : ', files);
+    }
+  })
+});
+
 
 app.post('/', upload.any(), function(req, res, next) {
   if(req.files) {
@@ -38,7 +38,7 @@ app.post('/', upload.any(), function(req, res, next) {
       var filename = (new Date).valueOf() + '-' + file.originalname
       fs.rename(file.path, '../public/uploads/'+filename, function(err) {
         if(err) {
-          console.log('Error uploading : ', err)
+          console.log('Error uploading image : ', err)
         } else {
           console.log('Image uploaded!')
           var image = new Image({
@@ -46,31 +46,19 @@ app.post('/', upload.any(), function(req, res, next) {
             image: filename
           });
 
-          model.save(function(err, results) {
+          image.save(function(err, results) {
             if(err) {
-              console.log('Error saving to database! : ', err);
+              console.log('Error saving to database : ', err);
             } else {
-              res.send(results);
+              console.log('Saved to database : ', results);
+              res.redirect('/upload');
             }
           })
         }
-
       });
     })
   }
 });
-
-  function uploadImage(req, res) {
-    var myFile = req.file;
-
-    var originalname = myFile.originalname;
-    var filename = myFile.filename;
-    var path = myFile.path;
-    var destination = myFile.destination;
-    var size = myFile.size;
-    var mimetype = myFile.mimetype;
-  }
-
 
 
 app.use(function(req, res, next) {

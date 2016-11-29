@@ -1,4 +1,4 @@
-angular.module('image-uploader', ['image-viewall', 'image-upload', 'ngRoute'])
+angular.module('image-uploader', ['image-viewall', 'image-upload', 'image-services','ngRoute'])
 
   .config(function($routeProvider) {
     $routeProvider

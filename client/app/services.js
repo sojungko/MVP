@@ -6,9 +6,6 @@ angular.module('image-services', [])
         method: 'GET',
         url: '/viewall'
       })
-      .then(function (resp) {
-        return resp.data;
-      });
     };
 
     var addOne = function (image) {
