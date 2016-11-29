@@ -41,7 +41,8 @@ app.post('/upload', upload.single('image'), function(req, res, next) {
   if(req.file) {
     var file = req.file;
     var filename = (new Date).valueOf() + '-' + file.originalname;
-    fs.writeFile('uploads/'+filename, filename, function(err, results) {
+    console.log(__dirname);
+    fs.writeFile(path.join(__dirname, 'uploads/',filename), filename, function(err, results) {
       if(err) {
         console.log('Error uploading image : ', err)
       } else {
