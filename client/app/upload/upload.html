@@ -1,7 +1,7 @@
 <div class='container' ng-controller='uploadController'>
   <div>
     <form name='uploadImage' action='/upload' ng-submit='submit()' method='POST' enctype='multipart/form-data'>
-      <input name='image' type='file' name='f' ng-model='image' class='form-control' on change='angular.element(this).scope().readFile(this)'/>
+      <input name='image' type='file' ng-model='image' class='form-control'/>
       <button type='submit' class='btn btn-block btn-primary'>Upload Image</button>
     </form>
     <hr>
