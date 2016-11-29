@@ -1,5 +1,5 @@
 angular.module('image-services', [])
-  .factory('Uploads', function ($http) {
+  .factory('Uploads', function ($http, 'ajaxService') {
 
     var getAll = function () {
       return $http({
@@ -11,22 +11,21 @@ angular.module('image-services', [])
     var addOne = function (image) {
       var fd = new FormData();
       fd.append('file', image);
-      $http({
-        method: 'POST',
-        url: '/upload',
-        transformRequest: angular.identity,
+      $http.post('/upload', fd, {
         headers: {
-          'Content-Type': undefined
+        'Content-Type': undefined
         },
-        enctype: 'multipart/form-data',
-        data: fd
+        transformRequest: angular.identity,
+        params: {
+          fd
+        }
       })
-      .then(function(resp) {
-        return resp;
-        console.log('Successful post request : ', resp.data);
+      .success(function(res) {
+        console.log('Success posting : ', res);
+
       })
-      .catch(function(err) {
-        console.log('Error in addOne : ', err)
+      .error(function(err) {
+        console.log('Error posting : ', err);
       });
     };
 
