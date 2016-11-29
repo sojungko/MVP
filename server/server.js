@@ -44,7 +44,7 @@ app.post('/upload', upload.any(), function(req, res, next) {
         if(err) {
           console.log('Error uploading image : ', err)
         } else {
-          res.json(results);
+          res.send();
           console.log('Image uploaded!')
         }
       });
