@@ -22,11 +22,12 @@ app.get('/', function(req, res) {
 
 app.get('/viewall', function(req, res) {
   console.log(req.body)
-  fs.readdir(path.join(__dirname, '../../../public/uploads'), function(err, files) {
+  fs.readdir(path.join(__dirname, '../public/uploads'), function(err, files) {
     if(err) {
       console.log('Error reading image names : ', err);
     } else {
       console.log('Read files : ', files);
+      res.send(files);
     }
   })
 });

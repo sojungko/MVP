@@ -1,11 +1,11 @@
 angular.module('image-viewall', [])
-  .controller('viewController', function($scope, Uploads) {
+  .controller('viewController', function($scope, $http, Uploads) {
     $scope.data = {};
     var viewAll = function() {
       Uploads.getAll()
-        .then(function(images) {
-          console.log("Then for getAll")
-          $scope.data.images = images;
+        .then(function(imageArr) {
+          $scope.data.images = imageArr;
+          console.log(imageArr);
         })
         .catch(function(err) {
           console.log('Error viewing images')
