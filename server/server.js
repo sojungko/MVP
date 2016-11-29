@@ -34,7 +34,6 @@ app.get('/viewall', function(req, res) {
   })
 });
 
-
 app.post('/upload', upload.any(), function(req, res, next) {
   console.log(req.body)
   if(req.files) {

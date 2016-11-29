@@ -23,7 +23,7 @@ angular.module('image-services', [])
       })
       .then(function(resp) {
         return resp;
-        console.log('Success!!!! : ', resp.data);
+        console.log('Successful post request : ', resp.data);
       })
       .catch(function(err) {
         console.log('Error in addOne : ', err)

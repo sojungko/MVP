@@ -7,6 +7,9 @@ angular.module('image-upload', [])
         .then(function(res) {
           $scope.image = res.data;
         })
+        .catch(function(err) {
+          console.log('Error posting image : ', err);
+        })
         // .then(function(res) {
         //   console.log('UPLOADCONTROLLER IMAGE : ', res.data);
         //   $scope.image = res.data.originalname;
